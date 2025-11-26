@@ -78,14 +78,16 @@
       "message": "Add your first receipt using the form above to start tracking your expenses."
     },
     "error": {
-      "loading": "Error Loading Receipts"
+      "loading": "Error Loading Receipts",
+      "storageQuotaExceeded": "Storage full. Please delete some receipts to free up space."
     },
     "modal": {
       "title": "Add Receipt",
       "editTitle": "Edit Receipt",
       "success": "Receipt added successfully",
       "finish": "Finish",
-      "addAnother": "Add another"
+      "addAnother": "Add another",
+      "retry": "Retry"
     },
     "summary": {
       "count": "Receipts",

@@ -78,14 +78,16 @@
       "message": "Agrega tu primera boleta usando el formulario para comenzar a registrar tus gastos."
     },
     "error": {
-      "loading": "Error al Cargar Boletas"
+      "loading": "Error al Cargar Boletas",
+      "storageQuotaExceeded": "Almacenamiento lleno. Elimina algunas boletas para liberar espacio."
     },
     "modal": {
       "title": "Agregar Boleta",
       "editTitle": "Editar Boleta",
       "success": "Boleta agregada exitosamente",
       "finish": "Finalizar",
-      "addAnother": "Agregar otra"
+      "addAnother": "Agregar otra",
+      "retry": "Reintentar"
     },
     "summary": {
       "count": "Boletas",

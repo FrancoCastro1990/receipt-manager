@@ -11,6 +11,7 @@ export interface ReceiptFormProps {
   resetFormRef?: React.MutableRefObject<(() => void) | null>;
   initialValues?: ReceiptFormInitialValues;
   mode?: 'create' | 'edit';
+  isSubmitting?: boolean;
   className?: string;
 }
 
@@ -23,6 +24,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   resetFormRef,
   initialValues,
   mode = 'create',
+  isSubmitting = false,
   className = '',
 }) => {
   const { t } = useTranslation();
@@ -111,11 +113,17 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
 
         <button
           type="submit"
-          disabled={!isValid}
+          disabled={!isValid || isSubmitting}
           className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary-700 hover:bg-primary-800 disabled:bg-neutral-300 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors"
         >
-          {isEditMode ? <Save className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
-          <span>{t(submitKey)}</span>
+          {isSubmitting ? (
+            <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          ) : isEditMode ? (
+            <Save className="h-5 w-5" />
+          ) : (
+            <Plus className="h-5 w-5" />
+          )}
+          <span>{isSubmitting ? t('common.loading') : t(submitKey)}</span>
         </button>
       </div>
     </form>

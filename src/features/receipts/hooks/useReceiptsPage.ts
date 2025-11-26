@@ -40,12 +40,15 @@ export interface UseReceiptsPageReturn {
   modalState: ModalState;
   modalMode: ModalMode;
   editingReceipt: Receipt | null;
+  modalErrorMessage: string | null;
+  isModalSubmitting: boolean;
   openModal: () => void;
   openEditModal: (receipt: Receipt) => void;
   closeModal: () => void;
   handleModalSubmit: (data: ReceiptFormData) => void;
   handleAddAnother: () => void;
   handleFinish: () => void;
+  handleRetry: () => void;
   resetFormRef: React.MutableRefObject<(() => void) | null>;
 
   // Mutations
@@ -68,7 +71,7 @@ export const useReceiptsPage = (): UseReceiptsPageReturn => {
     stats,
     isLoading: receiptsLoading,
     error,
-    createReceipt,
+    createReceiptAsync,
     updateReceipt,
     deleteReceipt,
     isDeleting,
@@ -106,14 +109,17 @@ export const useReceiptsPage = (): UseReceiptsPageReturn => {
     modalState,
     modalMode,
     editingReceipt,
+    errorMessage: modalErrorMessage,
+    isSubmitting: isModalSubmitting,
     openModal,
     openEditModal,
     closeModal,
     handleSubmit: handleModalSubmit,
     handleAddAnother,
     handleFinish,
+    handleRetry,
     resetFormRef,
-  } = useAddReceiptModal({ onReceiptCreated: createReceipt, onReceiptUpdated: updateReceipt });
+  } = useAddReceiptModal({ onReceiptCreated: createReceiptAsync, onReceiptUpdated: updateReceipt });
 
   return {
     // Data
@@ -148,12 +154,15 @@ export const useReceiptsPage = (): UseReceiptsPageReturn => {
     modalState,
     modalMode,
     editingReceipt,
+    modalErrorMessage,
+    isModalSubmitting,
     openModal,
     openEditModal,
     closeModal,
     handleModalSubmit,
     handleAddAnother,
     handleFinish,
+    handleRetry,
     resetFormRef,
 
     // Mutations

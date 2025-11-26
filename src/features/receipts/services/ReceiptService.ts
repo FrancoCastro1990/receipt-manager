@@ -112,13 +112,22 @@ export class MockReceiptService implements IReceiptService {
 
   /**
    * Saves receipts array to localStorage
+   * Throws an error if storage quota is exceeded
    */
   private saveToStorage(receipts: Receipt[]): void {
     const storageData: ReceiptStorageData[] = receipts.map((receipt) => ({
       ...receipt,
       createdAt: receipt.createdAt.toISOString(),
     }));
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(storageData));
+
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(storageData));
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'QuotaExceededError') {
+        throw new Error('STORAGE_QUOTA_EXCEEDED');
+      }
+      throw error;
+    }
   }
 }
 

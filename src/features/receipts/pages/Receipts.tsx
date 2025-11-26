@@ -55,12 +55,15 @@ export const Receipts: React.FC<ReceiptsPageProps> = ({ className = '' }) => {
     modalState,
     modalMode,
     editingReceipt,
+    modalErrorMessage,
+    isModalSubmitting,
     openModal,
     openEditModal,
     closeModal,
     handleModalSubmit,
     handleAddAnother,
     handleFinish,
+    handleRetry,
     resetFormRef,
 
     // Mutations
@@ -136,10 +139,13 @@ export const Receipts: React.FC<ReceiptsPageProps> = ({ className = '' }) => {
         modalState={modalState}
         modalMode={modalMode}
         editingReceipt={editingReceipt}
+        errorMessage={modalErrorMessage}
+        isSubmitting={isModalSubmitting}
         onClose={closeModal}
         onSubmit={handleModalSubmit}
         onAddAnother={handleAddAnother}
         onFinish={handleFinish}
+        onRetry={handleRetry}
         resetFormRef={resetFormRef}
       />
     </div>

@@ -16,6 +16,7 @@ export interface UseReceiptsReturn {
   isLoading: boolean;
   error: Error | null;
   createReceipt: (data: ReceiptFormData) => void;
+  createReceiptAsync: (data: ReceiptFormData) => Promise<Receipt>;
   updateReceipt: (data: UpdateReceiptData) => void;
   deleteReceipt: (id: string) => void;
   isCreating: boolean;
@@ -48,6 +49,7 @@ export const useReceipts = (): UseReceiptsReturn => {
     isLoading,
     error: error ?? null,
     createReceipt: createMutation.mutate,
+    createReceiptAsync: createMutation.mutateAsync,
     updateReceipt: updateMutation.mutate,
     deleteReceipt: deleteMutation.mutate,
     isCreating: createMutation.isPending,

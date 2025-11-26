@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect, type ChangeEvent } from 'react';
-import { fileToBase64 } from '@/lib/fileUtils';
+import { compressImage } from '@/lib/fileUtils';
 
 export interface UseImagePickerProps {
   initialPreview?: string | null;
@@ -90,9 +90,14 @@ export const useImagePicker = ({
 
   const processFile = useCallback(
     async (file: File) => {
-      const preview = await fileToBase64(file);
-      setImagePreview(preview);
-      onImageChange?.(file, preview);
+      const compressedBase64 = await compressImage(file, 600, 600, 0.6);
+      setImagePreview(compressedBase64);
+
+      const response = await fetch(compressedBase64);
+      const blob = await response.blob();
+      const compressedFile = new File([blob], file.name, { type: 'image/jpeg' });
+
+      onImageChange?.(compressedFile, compressedBase64);
     },
     [onImageChange]
   );

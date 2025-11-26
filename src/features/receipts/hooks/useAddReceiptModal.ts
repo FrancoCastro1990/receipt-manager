@@ -1,11 +1,11 @@
 import { useState, useCallback, useRef } from 'react';
 import type { Receipt, ReceiptFormData, UpdateReceiptData } from '../types';
 
-export type ModalState = 'form' | 'success';
+export type ModalState = 'form' | 'success' | 'error';
 export type ModalMode = 'create' | 'edit';
 
 export interface UseAddReceiptModalProps {
-  onReceiptCreated: (data: ReceiptFormData) => void;
+  onReceiptCreated: (data: ReceiptFormData) => Promise<Receipt>;
   onReceiptUpdated: (data: UpdateReceiptData) => void;
 }
 
@@ -15,6 +15,8 @@ export interface UseAddReceiptModalReturn {
   modalState: ModalState;
   modalMode: ModalMode;
   editingReceipt: Receipt | null;
+  errorMessage: string | null;
+  isSubmitting: boolean;
 
   // Actions
   openModal: () => void;
@@ -27,6 +29,7 @@ export interface UseAddReceiptModalReturn {
   // Post-submit actions
   handleAddAnother: () => void;
   handleFinish: () => void;
+  handleRetry: () => void;
 
   // Ref for form reset (will be set by form)
   resetFormRef: React.MutableRefObject<(() => void) | null>;
@@ -44,11 +47,14 @@ export const useAddReceiptModal = ({
   const [modalState, setModalState] = useState<ModalState>('form');
   const [modalMode, setModalMode] = useState<ModalMode>('create');
   const [editingReceipt, setEditingReceipt] = useState<Receipt | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const resetFormRef = useRef<(() => void) | null>(null);
 
   const openModal = useCallback(() => {
     setModalMode('create');
     setEditingReceipt(null);
+    setErrorMessage(null);
     setIsOpen(true);
     setModalState('form');
   }, []);
@@ -56,6 +62,7 @@ export const useAddReceiptModal = ({
   const openEditModal = useCallback((receipt: Receipt) => {
     setModalMode('edit');
     setEditingReceipt(receipt);
+    setErrorMessage(null);
     setIsOpen(true);
     setModalState('form');
   }, []);
@@ -64,10 +71,12 @@ export const useAddReceiptModal = ({
     setIsOpen(false);
     setModalState('form');
     setEditingReceipt(null);
+    setErrorMessage(null);
+    setIsSubmitting(false);
   }, []);
 
   const handleSubmit = useCallback(
-    (data: ReceiptFormData) => {
+    async (data: ReceiptFormData) => {
       if (modalMode === 'edit' && editingReceipt) {
         const updateData: UpdateReceiptData = {
           id: editingReceipt.id,
@@ -80,8 +89,21 @@ export const useAddReceiptModal = ({
         onReceiptUpdated(updateData);
         closeModal();
       } else {
-        onReceiptCreated(data);
-        setModalState('success');
+        setIsSubmitting(true);
+        setErrorMessage(null);
+        try {
+          await onReceiptCreated(data);
+          setModalState('success');
+        } catch (error) {
+          const message =
+            error instanceof Error && error.message === 'STORAGE_QUOTA_EXCEEDED'
+              ? 'STORAGE_QUOTA_EXCEEDED'
+              : 'UNKNOWN_ERROR';
+          setErrorMessage(message);
+          setModalState('error');
+        } finally {
+          setIsSubmitting(false);
+        }
       }
     },
     [modalMode, editingReceipt, onReceiptCreated, onReceiptUpdated, closeModal]
@@ -89,6 +111,7 @@ export const useAddReceiptModal = ({
 
   const handleAddAnother = useCallback(() => {
     setModalState('form');
+    setErrorMessage(null);
     resetFormRef.current?.();
   }, []);
 
@@ -96,17 +119,25 @@ export const useAddReceiptModal = ({
     closeModal();
   }, [closeModal]);
 
+  const handleRetry = useCallback(() => {
+    setModalState('form');
+    setErrorMessage(null);
+  }, []);
+
   return {
     isOpen,
     modalState,
     modalMode,
     editingReceipt,
+    errorMessage,
+    isSubmitting,
     openModal,
     openEditModal,
     closeModal,
     handleSubmit,
     handleAddAnother,
     handleFinish,
+    handleRetry,
     resetFormRef,
   };
 };
