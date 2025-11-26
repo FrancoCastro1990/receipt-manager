@@ -1,0 +1,190 @@
+{
+  "app": {
+    "name": "Gestor de Boletas"
+  },
+  "landing": {
+    "hero": {
+      "title": "Gestiona tus gastos",
+      "subtitle": "Registra, organiza y analiza tus recibos de forma simple",
+      "cta": {
+        "start": "Comenzar",
+        "calendar": "Ver Calendario"
+      }
+    },
+    "features": {
+      "title": "Funcionalidades",
+      "receipts": {
+        "title": "Registro de Boletas",
+        "description": "Guarda y organiza todas tus boletas en un solo lugar"
+      },
+      "analytics": {
+        "title": "Analisis de Gastos",
+        "description": "Visualiza tus gastos con graficos e informes detallados"
+      },
+      "calendar": {
+        "title": "Vista de Calendario",
+        "description": "Revisa tus gastos organizados por fecha"
+      }
+    }
+  },
+  "dateRange": {
+    "label": "Rango de fechas",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de fin",
+    "startDatePlaceholder": "DD/MM/AAAA",
+    "endDatePlaceholder": "DD/MM/AAAA",
+    "presets": {
+      "today": "Hoy",
+      "yesterday": "Ayer",
+      "last7days": "Ultimos 7 dias",
+      "last30days": "Ultimos 30 dias",
+      "thisWeek": "Esta semana",
+      "thisMonth": "Este mes",
+      "lastMonth": "Mes pasado",
+      "custom": "Personalizado"
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "receipts": "Boletas",
+    "calendar": "Calendario",
+    "settings": "Configuracion"
+  },
+  "receipts": {
+    "title": "Boletas",
+    "description": "Registra tus gastos diarios agregando boletas con nombres, montos e imagenes opcionales.",
+    "yourReceipts": "Tus Boletas",
+    "form": {
+      "title": "Agregar Nueva Boleta",
+      "editTitle": "Editar Boleta",
+      "name": "Nombre de la Boleta",
+      "namePlaceholder": "Ingresa el nombre",
+      "amount": "Monto",
+      "amountPlaceholder": "1000",
+      "date": "Fecha",
+      "datePlaceholder": "DD/MM/AAAA",
+      "image": "Imagen (Opcional)",
+      "addImage": "Agregar Imagen",
+      "submit": "Agregar Boleta",
+      "save": "Guardar Cambios"
+    },
+    "card": {
+      "deleteConfirm": "¿Estas seguro que deseas eliminar \"{{name}}\"?",
+      "deleteAriaLabel": "Eliminar {{name}}",
+      "editAriaLabel": "Editar {{name}}"
+    },
+    "empty": {
+      "title": "Sin Boletas",
+      "message": "Agrega tu primera boleta usando el formulario para comenzar a registrar tus gastos."
+    },
+    "error": {
+      "loading": "Error al Cargar Boletas"
+    },
+    "modal": {
+      "title": "Agregar Boleta",
+      "editTitle": "Editar Boleta",
+      "success": "Boleta agregada exitosamente",
+      "finish": "Finalizar",
+      "addAnother": "Agregar otra"
+    },
+    "summary": {
+      "count": "Boletas",
+      "amount": "Monto Total"
+    },
+    "tabs": {
+      "receipts": "Boletas",
+      "statistics": "Estadisticas"
+    },
+    "fab": {
+      "ariaLabel": "Agregar nueva boleta"
+    }
+  },
+  "stats": {
+    "totalReceipts": "Total de Boletas",
+    "totalAmount": "Monto Total",
+    "todayReceipts": "Boletas de Hoy",
+    "todayAmount": "Monto de Hoy"
+  },
+  "calendar": {
+    "title": "Calendario de Boletas",
+    "description": "Visualiza tus boletas organizadas por fecha. Haz clic en un dia para ver los detalles.",
+    "today": "Hoy",
+    "prevMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
+    "selectDay": "Selecciona un dia para ver las boletas",
+    "noReceipts": "Sin boletas para este dia",
+    "total": "Total",
+    "legend": {
+      "low": "1-2 boletas",
+      "medium": "3-5 boletas",
+      "high": "6+ boletas"
+    },
+    "weekdays": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mie",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sab",
+      "sun": "Dom"
+    },
+    "error": {
+      "loading": "Error al cargar el calendario. Por favor, intenta nuevamente."
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Cerrar menu"
+  },
+  "imagePicker": {
+    "takePhoto": "Tomar foto",
+    "selectFromGallery": "Seleccionar de galeria",
+    "selectFile": "Seleccionar archivo",
+    "removeImage": "Eliminar imagen"
+  },
+  "languageSelector": {
+    "label": "Idioma",
+    "es": "Espanol",
+    "en": "English"
+  },
+  "analytics": {
+    "title": "Analisis de Ganancias",
+    "receiptsInRange": "Boletas en rango",
+    "amountInRange": "Total en rango",
+    "profitInRange": "Tu Ganancia ({{percentage}})",
+    "percentageOfTotal": "Del total historico",
+    "percentageVsToday": "Comparado con hoy",
+    "ofHistoricTotal": "del total historico",
+    "vsToday": "vs hoy",
+    "empty": {
+      "title": "Sin datos en este rango",
+      "message": "No hay boletas registradas en el rango de fechas seleccionado. Prueba seleccionando un rango diferente."
+    }
+  },
+  "settings": {
+    "title": "Configuracion",
+    "description": "Personaliza tu experiencia ajustando las opciones de la aplicacion.",
+    "form": {
+      "profitPercentage": {
+        "label": "Porcentaje de Ganancia",
+        "description": "Tu comision para calcular las ganancias de cada boleta."
+      },
+      "dateRange": {
+        "label": "Rango de Fechas por Defecto",
+        "description": "Rango predeterminado para filtrar tus boletas y estadisticas."
+      },
+      "submit": "Guardar Configuracion",
+      "saving": "Guardando...",
+      "errors": {
+        "profitRequired": "El porcentaje de ganancia es requerido.",
+        "profitInvalid": "Ingresa un numero valido.",
+        "profitRange": "El porcentaje debe estar entre 0 y 100."
+      }
+    },
+    "error": {
+      "loading": "Error al Cargar Configuracion"
+    }
+  }
+}

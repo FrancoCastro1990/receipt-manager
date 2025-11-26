@@ -1,0 +1,190 @@
+{
+  "app": {
+    "name": "Receipt Manager"
+  },
+  "landing": {
+    "hero": {
+      "title": "Manage your expenses",
+      "subtitle": "Record, organize and analyze your receipts simply",
+      "cta": {
+        "start": "Get Started",
+        "calendar": "View Calendar"
+      }
+    },
+    "features": {
+      "title": "Features",
+      "receipts": {
+        "title": "Receipt Tracking",
+        "description": "Save and organize all your receipts in one place"
+      },
+      "analytics": {
+        "title": "Expense Analytics",
+        "description": "Visualize your spending with charts and detailed reports"
+      },
+      "calendar": {
+        "title": "Calendar View",
+        "description": "Review your expenses organized by date"
+      }
+    }
+  },
+  "dateRange": {
+    "label": "Date range",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "startDatePlaceholder": "DD/MM/YYYY",
+    "endDatePlaceholder": "DD/MM/YYYY",
+    "presets": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7days": "Last 7 days",
+      "last30days": "Last 30 days",
+      "thisWeek": "This week",
+      "thisMonth": "This month",
+      "lastMonth": "Last month",
+      "custom": "Custom"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "receipts": "Receipts",
+    "calendar": "Calendar",
+    "settings": "Settings"
+  },
+  "receipts": {
+    "title": "Receipts",
+    "description": "Track your daily expenses by adding receipts with names, amounts, and optional images.",
+    "yourReceipts": "Your Receipts",
+    "form": {
+      "title": "Add New Receipt",
+      "editTitle": "Edit Receipt",
+      "name": "Receipt Name",
+      "namePlaceholder": "Enter receipt name",
+      "amount": "Amount",
+      "amountPlaceholder": "1000",
+      "date": "Date",
+      "datePlaceholder": "DD/MM/YYYY",
+      "image": "Image (Optional)",
+      "addImage": "Add Image",
+      "submit": "Add Receipt",
+      "save": "Save Changes"
+    },
+    "card": {
+      "deleteConfirm": "Are you sure you want to delete \"{{name}}\"?",
+      "deleteAriaLabel": "Delete {{name}}",
+      "editAriaLabel": "Edit {{name}}"
+    },
+    "empty": {
+      "title": "No Receipts Yet",
+      "message": "Add your first receipt using the form above to start tracking your expenses."
+    },
+    "error": {
+      "loading": "Error Loading Receipts"
+    },
+    "modal": {
+      "title": "Add Receipt",
+      "editTitle": "Edit Receipt",
+      "success": "Receipt added successfully",
+      "finish": "Finish",
+      "addAnother": "Add another"
+    },
+    "summary": {
+      "count": "Receipts",
+      "amount": "Total Amount"
+    },
+    "tabs": {
+      "receipts": "Receipts",
+      "statistics": "Statistics"
+    },
+    "fab": {
+      "ariaLabel": "Add new receipt"
+    }
+  },
+  "stats": {
+    "totalReceipts": "Total Receipts",
+    "totalAmount": "Total Amount",
+    "todayReceipts": "Today's Receipts",
+    "todayAmount": "Today's Amount"
+  },
+  "calendar": {
+    "title": "Receipts Calendar",
+    "description": "View your receipts organized by date. Click on a day to see the details.",
+    "today": "Today",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "selectDay": "Select a day to view receipts",
+    "noReceipts": "No receipts for this day",
+    "total": "Total",
+    "legend": {
+      "low": "1-2 receipts",
+      "medium": "3-5 receipts",
+      "high": "6+ receipts"
+    },
+    "weekdays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "error": {
+      "loading": "Error loading calendar. Please try again."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "imagePicker": {
+    "takePhoto": "Take photo",
+    "selectFromGallery": "Select from gallery",
+    "selectFile": "Select file",
+    "removeImage": "Remove image"
+  },
+  "languageSelector": {
+    "label": "Language",
+    "es": "Espanol",
+    "en": "English"
+  },
+  "analytics": {
+    "title": "Profit Analysis",
+    "receiptsInRange": "Receipts in range",
+    "amountInRange": "Total in range",
+    "profitInRange": "Your Profit ({{percentage}})",
+    "percentageOfTotal": "Of historic total",
+    "percentageVsToday": "Compared to today",
+    "ofHistoricTotal": "of historic total",
+    "vsToday": "vs today",
+    "empty": {
+      "title": "No data in this range",
+      "message": "There are no receipts recorded in the selected date range. Try selecting a different range."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Customize your experience by adjusting the application options.",
+    "form": {
+      "profitPercentage": {
+        "label": "Profit Percentage",
+        "description": "Your commission to calculate the profit from each receipt."
+      },
+      "dateRange": {
+        "label": "Default Date Range",
+        "description": "Default range for filtering your receipts and statistics."
+      },
+      "submit": "Save Settings",
+      "saving": "Saving...",
+      "errors": {
+        "profitRequired": "Profit percentage is required.",
+        "profitInvalid": "Please enter a valid number.",
+        "profitRange": "Percentage must be between 0 and 100."
+      }
+    },
+    "error": {
+      "loading": "Error Loading Settings"
+    }
+  }
+}
