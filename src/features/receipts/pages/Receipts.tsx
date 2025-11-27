@@ -127,6 +127,9 @@ export const Receipts: React.FC<ReceiptsPageProps> = ({ className = '' }) => {
         )}
       </TabsContainer>
 
+      {/* FAB gradient backdrop for visual separation */}
+      <div className="fab-backdrop" aria-hidden="true" />
+
       {/* FAB for adding receipts */}
       <FloatingAddButton
         onClick={openModal}

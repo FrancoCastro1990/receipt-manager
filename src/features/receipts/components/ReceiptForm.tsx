@@ -48,7 +48,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   } = useReceiptForm({ onSubmit, initialValues });
 
   const isEditMode = mode === 'edit';
-  const titleKey = isEditMode ? 'receipts.form.editTitle' : 'receipts.form.title';
+  //const titleKey = isEditMode ? 'receipts.form.editTitle' : 'receipts.form.title';
   const submitKey = isEditMode ? 'receipts.form.save' : 'receipts.form.submit';
 
   // Expose resetForm function to parent via ref
@@ -61,9 +61,9 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cn('card-base p-6', className)}
+      className={cn(' p-6', className)}
     >
-      <h2 className="text-lg font-semibold text-primary-900 mb-4">{t(titleKey)}</h2>
+      {/* <h2 className="text-lg font-semibold text-primary-900 mb-4">{t(titleKey)}</h2> */}
 
       <div className="space-y-4">
         <div>

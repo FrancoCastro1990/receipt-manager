@@ -384,23 +384,32 @@
 
   /* --------------------------------------------------------------------------
      FAB (Floating Action Button)
-     Circular action button fixed at bottom-right corner
+     Circular action button fixed at bottom center
      -------------------------------------------------------------------------- */
 
   /* FAB Button - Primary floating action button */
   .fab-button {
-    @apply fixed bottom-20 right-4 md:bottom-6 md:right-6
+    @apply fixed bottom-6 left-1/2 -translate-x-1/2
            w-14 h-14
            flex items-center justify-center
            rounded-full
            text-white
-           shadow-elevated
-           hover:shadow-xl hover:scale-105
+           shadow-2xl
+           hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.35)] hover:scale-105
            focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
            active:scale-95
            transition-all duration-200
            z-40;
     background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-700) 50%, var(--color-primary-800) 100%);
+  }
+
+  /* FAB Backdrop - Gradient overlay behind FAB button */
+  .fab-backdrop {
+    @apply fixed bottom-0 left-0 right-0
+           h-28
+           pointer-events-none
+           z-30;
+    background: linear-gradient(to top, var(--color-primary-50) 0%, transparent 100%);
   }
 
   /* --------------------------------------------------------------------------

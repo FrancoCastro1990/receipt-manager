@@ -23,7 +23,7 @@ export const FilteredReceiptsSummary: React.FC<FilteredReceiptsSummaryProps> = (
   const profit = amount * 0.4;
 
   return (
-    <div className={cn('grid grid-cols-3 gap-4', className)}>
+    <div className={cn('grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4', className)}>
       <StatCard
         icon={<Receipt className="h-5 w-5" />}
         label={t('receipts.summary.count')}
