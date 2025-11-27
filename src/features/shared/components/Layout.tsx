@@ -38,7 +38,7 @@ export const Layout: React.FC<LayoutProps> = ({ className = "", children }) => {
   };
 
   return (
-    <div className={cn('min-h-screen flex flex-col', className)}>
+    <div className={cn('min-h-dvh flex flex-col', className)}>
       {/* Header */}
       <header className="sticky top-0 z-50 bg-gradient-primary shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,7 +126,7 @@ export const Layout: React.FC<LayoutProps> = ({ className = "", children }) => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 bg-neutral-100">
+      <main className="flex-1 bg-primary-50">
         {children}
       </main>
     </div>
