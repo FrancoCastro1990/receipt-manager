@@ -20,6 +20,7 @@ export interface UseSettingsReturn {
   updateSettings: (data: SettingsFormData) => void;
   resetSettings: () => void;
   isUpdating: boolean;
+  isUpdateSuccess: boolean;
 }
 
 /**
@@ -45,5 +46,6 @@ export const useSettings = (): UseSettingsReturn => {
     updateSettings: updateMutation.mutate,
     resetSettings: resetMutation.mutate,
     isUpdating: updateMutation.isPending || resetMutation.isPending,
+    isUpdateSuccess: updateMutation.isSuccess,
   };
 };

@@ -11,6 +11,7 @@ export interface UseSettingsFormReturn {
   profitPercentage: string;
   dateRangePreset: DateRangePreset;
   customDateRange?: DateRange;
+  googleApiKey: string;
 
   // Validation
   isValid: boolean;
@@ -19,6 +20,7 @@ export interface UseSettingsFormReturn {
   // Handlers
   handleProfitChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleDateRangeChange: (preset: DateRangePreset, customRange?: DateRange) => void;
+  handleGoogleApiKeyChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: FormEvent) => void;
 
   // State
@@ -77,6 +79,9 @@ export const useSettingsForm = ({
   const [customDateRange, setCustomDateRange] = useState<DateRange | undefined>(
     initialSettings.customDateRange
   );
+  const [googleApiKey, setGoogleApiKey] = useState(
+    initialSettings.googleApiKey ?? ''
+  );
 
   const profitError = useMemo(() => validateProfit(profitPercentage), [profitPercentage]);
 
@@ -90,15 +95,18 @@ export const useSettingsForm = ({
       customDateRange,
       initialSettings.customDateRange
     );
+    const apiKeyChanged = googleApiKey !== (initialSettings.googleApiKey ?? '');
 
-    return profitChanged || presetChanged || customRangeChanged;
+    return profitChanged || presetChanged || customRangeChanged || apiKeyChanged;
   }, [
     profitPercentage,
     dateRangePreset,
     customDateRange,
+    googleApiKey,
     initialSettings.profitPercentage,
     initialSettings.defaultDateRange,
     initialSettings.customDateRange,
+    initialSettings.googleApiKey,
   ]);
 
   const handleProfitChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -118,6 +126,10 @@ export const useSettingsForm = ({
     []
   );
 
+  const handleGoogleApiKeyChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setGoogleApiKey(e.target.value);
+  }, []);
+
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
@@ -130,21 +142,24 @@ export const useSettingsForm = ({
         profitPercentage: parseFloat(profitPercentage),
         defaultDateRange: dateRangePreset,
         customDateRange: dateRangePreset === 'custom' ? customDateRange : undefined,
+        googleApiKey: googleApiKey.trim() || undefined,
       };
 
       onSubmit(formData);
     },
-    [isValid, profitPercentage, dateRangePreset, customDateRange, onSubmit]
+    [isValid, profitPercentage, dateRangePreset, customDateRange, googleApiKey, onSubmit]
   );
 
   return {
     profitPercentage,
     dateRangePreset,
     customDateRange,
+    googleApiKey,
     isValid,
     profitError,
     handleProfitChange,
     handleDateRangeChange,
+    handleGoogleApiKeyChange,
     handleSubmit,
     isDirty,
   };

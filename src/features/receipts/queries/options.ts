@@ -2,6 +2,7 @@ import { queryOptions, type MutationOptions } from '@tanstack/react-query';
 import type { IReceiptService } from '../services/ReceiptService';
 import type { Receipt, ReceiptFormData, UpdateReceiptData } from '../types';
 import { receiptKeys } from './keys';
+import { receiptsCalendarKeys } from '@/features/receipts-calendar';
 import { queryClient } from '@/lib/queryClient';
 
 /**
@@ -22,6 +23,7 @@ export const createReceiptMutationOptions = (
   mutationFn: (data: ReceiptFormData) => service.create(data),
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: receiptKeys.all });
+    queryClient.invalidateQueries({ queryKey: receiptsCalendarKeys.all });
   },
 });
 
@@ -34,6 +36,7 @@ export const updateReceiptMutationOptions = (
   mutationFn: (data: UpdateReceiptData) => service.update(data),
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: receiptKeys.all });
+    queryClient.invalidateQueries({ queryKey: receiptsCalendarKeys.all });
   },
 });
 
@@ -46,5 +49,6 @@ export const deleteReceiptMutationOptions = (
   mutationFn: (id: string) => service.delete(id),
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: receiptKeys.all });
+    queryClient.invalidateQueries({ queryKey: receiptsCalendarKeys.all });
   },
 });

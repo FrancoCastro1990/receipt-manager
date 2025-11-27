@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Plus, Save } from 'lucide-react';
+import { Plus, Save, Loader2, AlertCircle, RefreshCw, X } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { DatePicker, ImagePicker } from '@/features/shared';
 import { useReceiptForm, type ReceiptFormInitialValues } from '../hooks';
@@ -40,6 +40,11 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
     handleImagePickerChange,
     handleSubmit,
     resetForm,
+    // AI Analysis
+    isAnalyzing,
+    analysisError,
+    clearAnalysisError,
+    retryAnalysis,
   } = useReceiptForm({ onSubmit, initialValues });
 
   const isEditMode = mode === 'edit';
@@ -104,11 +109,53 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({
 
         <div>
           <label className="block text-sm font-medium text-primary-700 mb-1">{t('receipts.form.image')}</label>
-          <ImagePicker
-            imagePreview={imagePreview}
-            onImageChange={handleImagePickerChange}
-            initialPreview={initialValues?.imageUrl}
-          />
+          <div className="relative">
+            <ImagePicker
+              imagePreview={imagePreview}
+              onImageChange={handleImagePickerChange}
+              initialPreview={initialValues?.imageUrl}
+            />
+
+            {/* AI Analysis Overlay */}
+            {isAnalyzing && imagePreview && (
+              <div className="absolute inset-0 flex items-center justify-center bg-white/80 rounded-xl backdrop-blur-sm">
+                <div className="flex flex-col items-center gap-2 text-primary-700">
+                  <Loader2 className="h-8 w-8 animate-spin" />
+                  <span className="text-sm font-medium">{t('receipts.analysis.analyzing')}</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Analysis Error */}
+          {analysisError && (
+            <div className="mt-2 p-3 bg-error-50 border border-error-200 rounded-lg">
+              <div className="flex items-start gap-2">
+                <AlertCircle className="h-5 w-5 text-error-500 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-sm text-error-700">{t(analysisError as 'receipts.analysis.error')}</p>
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      type="button"
+                      onClick={retryAnalysis}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-primary-700 bg-white border border-primary-300 rounded-lg hover:bg-primary-50 transition-colors"
+                    >
+                      <RefreshCw className="h-3.5 w-3.5" />
+                      {t('receipts.analysis.retry')}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={clearAnalysisError}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-neutral-600 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                      {t('receipts.analysis.fillManually')}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <button

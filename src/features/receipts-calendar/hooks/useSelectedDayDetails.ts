@@ -19,6 +19,7 @@ export interface UseSelectedDayDetailsReturn {
   formattedDate: string;
   formattedReceipts: FormattedReceipt[];
   totalAmount: string;
+  profitAmount: string;
   hasReceipts: boolean;
 }
 
@@ -49,12 +50,18 @@ export const useSelectedDayDetails = ({
     return formatCurrency(total);
   }, [receipts]);
 
+  const profitAmount = useMemo(() => {
+    const total = receipts.reduce((sum, receipt) => sum + receipt.amount, 0);
+    return formatCurrency(total * 0.4);
+  }, [receipts]);
+
   const hasReceipts = receipts.length > 0;
 
   return {
     formattedDate,
     formattedReceipts,
     totalAmount,
+    profitAmount,
     hasReceipts,
   };
 };

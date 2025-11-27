@@ -22,6 +22,7 @@ export interface AppSettings {
   profitPercentage: number;
   defaultDateRange: DateRangePreset;
   customDateRange?: DateRange;
+  googleApiKey?: string;
 }
 
 /**
@@ -35,10 +36,12 @@ export interface AppSettingsStorageData {
     startDate: string;
     endDate: string;
   };
+  googleApiKey?: string;
 }
 
 export interface SettingsFormData {
   profitPercentage: number;
   defaultDateRange: DateRangePreset;
   customDateRange?: DateRange;
+  googleApiKey?: string;
 }

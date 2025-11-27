@@ -4,6 +4,7 @@ export { Receipts } from './pages/Receipts';
 export type {
   Receipt,
   ReceiptFormData,
+  UpdateReceiptData,
   ReceiptsStats,
   ReceiptStorageData,
   DateRangeStats,
@@ -15,6 +16,22 @@ export {
   type UseDashboardAnalyticsProps,
   type UseDashboardAnalyticsReturn,
 } from './hooks';
+
+export {
+  useAddReceiptModal,
+  type ModalState,
+  type ModalMode,
+  type UseAddReceiptModalProps,
+  type UseAddReceiptModalReturn,
+} from './hooks';
+
+export {
+  useReceipts,
+  type UseReceiptsReturn,
+} from './hooks';
+
+// Components
+export { AddReceiptModal, type AddReceiptModalProps } from './components';
 
 // Utils
 export {

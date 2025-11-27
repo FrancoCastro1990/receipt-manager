@@ -91,7 +91,8 @@
     },
     "summary": {
       "count": "Boletas",
-      "amount": "Monto Total"
+      "amount": "Monto Total",
+      "profit": "Tu Ganancia (40%)"
     },
     "tabs": {
       "receipts": "Boletas",
@@ -99,6 +100,15 @@
     },
     "fab": {
       "ariaLabel": "Agregar nueva boleta"
+    },
+    "analysis": {
+      "analyzing": "Analizando recibo...",
+      "error": "No se pudo analizar el recibo",
+      "noDataFound": "No se encontraron datos en la imagen",
+      "parseError": "Error al procesar la respuesta de IA",
+      "invalidApiKey": "API key invalida. Verifica tu configuracion.",
+      "retry": "Reintentar",
+      "fillManually": "Llenar manualmente"
     }
   },
   "stats": {
@@ -116,6 +126,7 @@
     "selectDay": "Selecciona un dia para ver las boletas",
     "noReceipts": "Sin boletas para este dia",
     "total": "Total",
+    "profit": "Ganancia (40%)",
     "legend": {
       "low": "1-2 boletas",
       "medium": "3-5 boletas",
@@ -179,10 +190,17 @@
       },
       "submit": "Guardar Configuracion",
       "saving": "Guardando...",
+      "saved": "Configuracion guardada exitosamente",
       "errors": {
         "profitRequired": "El porcentaje de ganancia es requerido.",
         "profitInvalid": "Ingresa un numero valido.",
         "profitRange": "El porcentaje debe estar entre 0 y 100."
+      },
+      "googleApiKey": {
+        "label": "Google AI API Key",
+        "placeholder": "Pega tu API key de Google AI Studio",
+        "description": "Obten tu API key gratis en",
+        "link": "Google AI Studio"
       }
     },
     "error": {

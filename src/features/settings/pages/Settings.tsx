@@ -16,7 +16,7 @@ export interface SettingsPageProps {
  */
 export const Settings: React.FC<SettingsPageProps> = ({ className }) => {
   const { t } = useTranslation();
-  const { settings, isLoading, error, updateSettings, isUpdating } = useSettings();
+  const { settings, isLoading, error, updateSettings, isUpdating, isUpdateSuccess } = useSettings();
 
   if (isLoading) {
     return (
@@ -59,6 +59,7 @@ export const Settings: React.FC<SettingsPageProps> = ({ className }) => {
           settings={settings}
           onSubmit={updateSettings}
           isSubmitting={isUpdating}
+          showSuccess={isUpdateSuccess}
         />
       </div>
     </div>

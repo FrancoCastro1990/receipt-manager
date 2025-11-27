@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calendar } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { PageHeader } from '@/features/shared';
+import {
+  AddReceiptModal,
+  useReceipts,
+  useAddReceiptModal,
+  type Receipt,
+} from '@/features/receipts';
 import { useReceiptsCalendar } from '../hooks';
 import {
   CalendarHeader,
@@ -36,6 +42,41 @@ export const ReceiptsCalendar: React.FC<ReceiptsCalendarProps> = ({
     goToToday,
     selectDate,
   } = useReceiptsCalendar();
+
+  const { createReceiptAsync, updateReceipt, deleteReceipt } = useReceipts();
+
+  const {
+    isOpen: isModalOpen,
+    modalState,
+    modalMode,
+    editingReceipt,
+    errorMessage,
+    isSubmitting,
+    openEditModal,
+    closeModal,
+    handleSubmit,
+    handleAddAnother,
+    handleFinish,
+    handleRetry,
+    resetFormRef,
+  } = useAddReceiptModal({
+    onReceiptCreated: createReceiptAsync,
+    onReceiptUpdated: updateReceipt,
+  });
+
+  const handleEditReceipt = useCallback(
+    (receipt: Receipt) => {
+      openEditModal(receipt);
+    },
+    [openEditModal]
+  );
+
+  const handleDeleteReceipt = useCallback(
+    (id: string) => {
+      deleteReceipt(id);
+    },
+    [deleteReceipt]
+  );
 
   if (error) {
     return (
@@ -112,9 +153,27 @@ export const ReceiptsCalendar: React.FC<ReceiptsCalendarProps> = ({
           <SelectedDayDetails
             selectedDate={selectedDate}
             receipts={selectedDateReceipts}
+            onEdit={handleEditReceipt}
+            onDelete={handleDeleteReceipt}
           />
         </div>
       </div>
+
+      {/* Edit Receipt Modal */}
+      <AddReceiptModal
+        isOpen={isModalOpen}
+        modalState={modalState}
+        modalMode={modalMode}
+        editingReceipt={editingReceipt}
+        errorMessage={errorMessage}
+        isSubmitting={isSubmitting}
+        onClose={closeModal}
+        onSubmit={handleSubmit}
+        onAddAnother={handleAddAnother}
+        onFinish={handleFinish}
+        onRetry={handleRetry}
+        resetFormRef={resetFormRef}
+      />
     </div>
   );
 };

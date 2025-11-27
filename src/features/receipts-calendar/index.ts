@@ -1,4 +1,5 @@
 export { ReceiptsCalendar } from './pages/ReceiptsCalendar';
+export { receiptsCalendarKeys } from './queries/keys';
 export type {
   CalendarDay,
   CalendarState,

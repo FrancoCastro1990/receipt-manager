@@ -11,6 +11,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@google/genai": "^1.30.0",
     "@tanstack/react-query": "^5.90.11",
     "date-fns": "^4.1.0",
     "i18next": "^25.6.3",

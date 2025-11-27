@@ -49,6 +49,7 @@ export class LocalStorageSettingsService implements ISettingsService {
       profitPercentage: data.profitPercentage,
       defaultDateRange: data.defaultDateRange,
       customDateRange: data.customDateRange,
+      googleApiKey: data.googleApiKey,
     };
 
     this.saveToStorage(settings);
@@ -73,6 +74,7 @@ export class LocalStorageSettingsService implements ISettingsService {
     const settings: AppSettings = {
       profitPercentage: data.profitPercentage,
       defaultDateRange: data.defaultDateRange,
+      googleApiKey: data.googleApiKey,
     };
 
     if (data.customDateRange) {
@@ -92,6 +94,7 @@ export class LocalStorageSettingsService implements ISettingsService {
     const storageData: AppSettingsStorageData = {
       profitPercentage: settings.profitPercentage,
       defaultDateRange: settings.defaultDateRange,
+      googleApiKey: settings.googleApiKey,
     };
 
     if (settings.customDateRange) {

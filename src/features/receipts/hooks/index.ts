@@ -4,6 +4,7 @@ export {
   type UseReceiptFormReturn,
   type ReceiptFormInitialValues,
 } from './useReceiptForm';
+export { useReceiptAnalyzer, type UseReceiptAnalyzerReturn } from './useReceiptAnalyzer';
 export { useReceiptCard, type UseReceiptCardProps, type UseReceiptCardReturn } from './useReceiptCard';
 export { useReceipts, type UseReceiptsReturn } from './useReceipts';
 export {

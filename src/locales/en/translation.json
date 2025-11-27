@@ -91,7 +91,8 @@
     },
     "summary": {
       "count": "Receipts",
-      "amount": "Total Amount"
+      "amount": "Total Amount",
+      "profit": "Your Profit (40%)"
     },
     "tabs": {
       "receipts": "Receipts",
@@ -99,6 +100,15 @@
     },
     "fab": {
       "ariaLabel": "Add new receipt"
+    },
+    "analysis": {
+      "analyzing": "Analyzing receipt...",
+      "error": "Could not analyze receipt",
+      "noDataFound": "No data found in image",
+      "parseError": "Error processing AI response",
+      "invalidApiKey": "Invalid API key. Check your settings.",
+      "retry": "Retry",
+      "fillManually": "Fill manually"
     }
   },
   "stats": {
@@ -116,6 +126,7 @@
     "selectDay": "Select a day to view receipts",
     "noReceipts": "No receipts for this day",
     "total": "Total",
+    "profit": "Profit (40%)",
     "legend": {
       "low": "1-2 receipts",
       "medium": "3-5 receipts",
@@ -179,10 +190,17 @@
       },
       "submit": "Save Settings",
       "saving": "Saving...",
+      "saved": "Settings saved successfully",
       "errors": {
         "profitRequired": "Profit percentage is required.",
         "profitInvalid": "Please enter a valid number.",
         "profitRange": "Percentage must be between 0 and 100."
+      },
+      "googleApiKey": {
+        "label": "Google AI API Key",
+        "placeholder": "Paste your Google AI Studio API key",
+        "description": "Get your free API key at",
+        "link": "Google AI Studio"
       }
     },
     "error": {

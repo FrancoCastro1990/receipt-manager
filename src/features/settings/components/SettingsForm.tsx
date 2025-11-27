@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Save, Loader2 } from 'lucide-react';
+import { Save, Loader2, ExternalLink, Eye, EyeOff, CheckCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/cn';
 import { DateRangeSelector } from '@/features/shared';
 import { useSettingsForm } from '../hooks';
@@ -10,6 +11,7 @@ export interface SettingsFormProps {
   settings: AppSettings;
   onSubmit: (data: SettingsFormData) => void;
   isSubmitting?: boolean;
+  showSuccess?: boolean;
   className?: string;
 }
 
@@ -21,17 +23,32 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
   settings,
   onSubmit,
   isSubmitting = false,
+  showSuccess = false,
   className,
 }) => {
   const { t } = useTranslation();
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [displaySuccess, setDisplaySuccess] = useState(false);
+
+  // Show success message briefly then hide it
+  useEffect(() => {
+    if (showSuccess) {
+      setDisplaySuccess(true);
+      const timer = setTimeout(() => setDisplaySuccess(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccess]);
+
   const {
     profitPercentage,
     dateRangePreset,
     customDateRange,
+    googleApiKey,
     isValid,
     profitError,
     handleProfitChange,
     handleDateRangeChange,
+    handleGoogleApiKeyChange,
     handleSubmit,
   } = useSettingsForm({ initialSettings: settings, onSubmit });
 
@@ -109,6 +126,71 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
           onChange={handleDateRangeChange}
         />
       </div>
+
+      {/* Google API Key Section */}
+      <div className="mb-8">
+        <label
+          htmlFor="google-api-key"
+          className="block text-lg font-semibold text-primary-900 mb-1"
+        >
+          {t('settings.form.googleApiKey.label')}
+        </label>
+        <p className="text-sm text-primary-500 mb-2">
+          {t('settings.form.googleApiKey.description')}{' '}
+          <a
+            href="https://aistudio.google.com/apikey"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-primary-600 hover:text-primary-700 underline"
+          >
+            {t('settings.form.googleApiKey.link')}
+            <ExternalLink className="h-3 w-3" aria-hidden="true" />
+          </a>
+        </p>
+
+        <div className="relative w-full">
+          <input
+            id="google-api-key"
+            type={showApiKey ? 'text' : 'password'}
+            value={googleApiKey}
+            onChange={handleGoogleApiKeyChange}
+            placeholder={t('settings.form.googleApiKey.placeholder')}
+            autoComplete="off"
+            className={cn(
+              'w-full px-4 py-3 pr-12',
+              'text-base font-mono',
+              'border border-neutral-300 rounded-xl',
+              'transition-all duration-200',
+              'focus:ring-2 focus:ring-offset-0 focus:border-transparent focus:ring-primary-500'
+            )}
+          />
+          <button
+            type="button"
+            onClick={() => setShowApiKey(!showApiKey)}
+            className={cn(
+              'absolute right-3 top-1/2 -translate-y-1/2',
+              'p-1 rounded-lg',
+              'text-primary-500 hover:text-primary-700',
+              'transition-colors'
+            )}
+            aria-label={showApiKey ? 'Hide API key' : 'Show API key'}
+          >
+            {showApiKey ? (
+              <EyeOff className="h-5 w-5" aria-hidden="true" />
+            ) : (
+              <Eye className="h-5 w-5" aria-hidden="true" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Success Message */}
+      {displaySuccess && (
+        <div className="mb-6 p-4 bg-success-50 border border-success-200 rounded-xl flex items-center gap-3">
+          <CheckCircle className="h-5 w-5 text-success-600 flex-shrink-0" />
+          <span className="text-success-700 font-medium">{t('settings.form.saved')}</span>
+        </div>
+      )}
 
       {/* Submit Button */}
       <div className="flex justify-center sm:justify-end">

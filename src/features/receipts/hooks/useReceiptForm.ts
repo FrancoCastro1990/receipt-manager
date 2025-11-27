@@ -1,5 +1,6 @@
 import { useState, useCallback, type ChangeEvent, type FormEvent } from 'react';
 import type { ReceiptFormData } from '../types';
+import { useReceiptAnalyzer } from './useReceiptAnalyzer';
 
 export interface ReceiptFormInitialValues {
   name: string;
@@ -25,6 +26,12 @@ export interface UseReceiptFormReturn {
   handleImagePickerChange: (file: File | null, preview: string | null) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   resetForm: () => void;
+  // AI Analysis
+  isAnalyzing: boolean;
+  analysisError: string | null;
+  clearAnalysisError: () => void;
+  retryAnalysis: () => void;
+  hasApiKey: boolean;
 }
 
 /**
@@ -49,6 +56,16 @@ export const useReceiptForm = ({ onSubmit, initialValues }: UseReceiptFormProps)
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(initialValues?.imageUrl ?? null);
   const [lastInitialValuesKey, setLastInitialValuesKey] = useState(initialValuesKey);
+  const [pendingAnalysisPreview, setPendingAnalysisPreview] = useState<string | null>(null);
+
+  // AI Analysis
+  const {
+    analyze,
+    isAnalyzing,
+    error: analysisError,
+    clearError: clearAnalysisError,
+    hasApiKey,
+  } = useReceiptAnalyzer();
 
   // Sync state when initialValues change (detected by key change)
   if (initialValuesKey !== lastInitialValuesKey) {
@@ -85,10 +102,48 @@ export const useReceiptForm = ({ onSubmit, initialValues }: UseReceiptFormProps)
     setDate(newDate);
   }, []);
 
-  const handleImagePickerChange = useCallback((file: File | null, preview: string | null) => {
-    setImage(file);
-    setImagePreview(preview);
-  }, []);
+  const handleImagePickerChange = useCallback(
+    async (file: File | null, preview: string | null) => {
+      setImage(file);
+      setImagePreview(preview);
+
+      // If we have a new image and API key is configured, analyze it
+      if (preview && hasApiKey) {
+        setPendingAnalysisPreview(preview);
+        clearAnalysisError();
+
+        const result = await analyze(preview);
+
+        if (result) {
+          // Pre-fill form fields with extracted data
+          if (result.name) {
+            setName(result.name);
+          }
+          if (result.amount !== null) {
+            setAmount(result.amount.toString());
+          }
+        }
+      }
+    },
+    [hasApiKey, analyze, clearAnalysisError]
+  );
+
+  const retryAnalysis = useCallback(async () => {
+    if (pendingAnalysisPreview && hasApiKey) {
+      clearAnalysisError();
+
+      const result = await analyze(pendingAnalysisPreview);
+
+      if (result) {
+        if (result.name) {
+          setName(result.name);
+        }
+        if (result.amount !== null) {
+          setAmount(result.amount.toString());
+        }
+      }
+    }
+  }, [pendingAnalysisPreview, hasApiKey, analyze, clearAnalysisError]);
 
   const resetImageState = useCallback(() => {
     setImage(null);
@@ -105,7 +160,9 @@ export const useReceiptForm = ({ onSubmit, initialValues }: UseReceiptFormProps)
       resetImageState();
     }
     setImage(null);
-  }, [initialValues, resetImageState]);
+    setPendingAnalysisPreview(null);
+    clearAnalysisError();
+  }, [initialValues, resetImageState, clearAnalysisError]);
 
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLFormElement>) => {
@@ -140,5 +197,11 @@ export const useReceiptForm = ({ onSubmit, initialValues }: UseReceiptFormProps)
     handleImagePickerChange,
     handleSubmit,
     resetForm,
+    // AI Analysis
+    isAnalyzing,
+    analysisError,
+    clearAnalysisError,
+    retryAnalysis,
+    hasApiKey,
   };
 };
