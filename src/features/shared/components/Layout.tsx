@@ -126,7 +126,7 @@ export const Layout: React.FC<LayoutProps> = ({ className = "", children }) => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1">
+      <main className="flex-1 bg-neutral-100">
         {children}
       </main>
     </div>
